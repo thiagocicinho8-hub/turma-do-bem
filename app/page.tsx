@@ -44,7 +44,7 @@ export default async function Home() {
           <div className="relative mx-auto w-full max-w-xs md:max-w-sm">
             <div className="absolute -inset-4 rounded-full bg-gold-400/20 blur-2xl" />
             <img
-              src="/images/thiago-retrato.svg"
+              src="/images/thiago-retrato.jpg"
               alt={`Retrato de ${SITE.shortName}`}
               className="relative w-full rounded-3xl shadow-2xl ring-1 ring-gold-400/40"
               width={720}

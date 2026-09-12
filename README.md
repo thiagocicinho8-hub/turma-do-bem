@@ -69,9 +69,8 @@ npm run dev
 Troque os placeholders em `lib/config.ts` e `public/images/`:
 
 1. Logo real (PNG/SVG transparente) → substituir `LogoMark` em `components/logo.tsx`.
-2. Retrato oficial → substituir `public/images/thiago-retrato.svg`.
-3. Artes-templates personalizadas → editar via `/admin/templates`.
-4. Slogan, handle `@...`, cores exatas e termos jurídicos → `lib/config.ts` e `/termos`.
+2. Artes-templates personalizadas → editar via `/admin/templates`.
+3. Slogan, handle `@...`, cores exatas e termos jurídicos → `lib/config.ts` e `/termos`.
 
 ## Scripts
 

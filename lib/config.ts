@@ -6,8 +6,8 @@ export const SITE = {
   slogan: "Crie. Compartilhe. Participe.",
   phrase:
     "Uma voz pode ser ignorada. Milhares, não. Junte-se à Tropa do Bem.",
-  handle: "@thiagocicinho",
-  instagram: "https://www.instagram.com/thiagocicinho",
+  handle: "@vereadorthiagocicinho",
+  instagram: "https://www.instagram.com/vereadorthiagocicinho",
   tiktok: "",
   whatsapp: "",
   video: {

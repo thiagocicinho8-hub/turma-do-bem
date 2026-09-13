@@ -63,6 +63,64 @@ export async function register(
   redirect("/criar");
 }
 
+export type OAuthPending = {
+  email: string;
+  name: string;
+  picture: string;
+  returnTo: string;
+};
+
+export async function readOAuthPending(): Promise<OAuthPending | null> {
+  const raw = (await cookies()).get("oauth_pending")?.value;
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as OAuthPending;
+  } catch {
+    return null;
+  }
+}
+
+export async function acceptOAuthTerms(): Promise<never> {
+  const pending = await readOAuthPending();
+  if (!pending) redirect("/login");
+
+  const cookieStore = await cookies();
+  cookieStore.delete("oauth_pending");
+
+  const ready = await dbReady();
+  if (!ready) redirect("/login?error=db");
+
+  const existing = await User.findOne({ email: pending.email }).lean();
+  const role = adminEmails().includes(pending.email) ? "admin" : "user";
+
+  const userId = existing
+    ? String(existing._id)
+    : String(
+        (
+          await User.create({
+            name: pending.name,
+            email: pending.email,
+            authProvider: "google",
+            role,
+            acceptedTermsAt: new Date(),
+          })
+        )._id
+      );
+
+  const finalRole =
+    existing && (existing.role as string) === "admin" ? "admin" : role;
+  const session = await encrypt({ userId, role: finalRole });
+  cookieStore.set("session", session, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+
+  redirect(pending.returnTo);
+}
+
 export async function login(
   _prev: FormState,
   formData: FormData
@@ -75,6 +133,9 @@ export async function login(
 
   const user = await User.findOne({ email }).lean();
   if (!user) return { message: "E-mail ou senha incorretos." };
+  if (!user.passwordHash) {
+    return { message: "Esta conta usa login com Google. Use o botão abaixo." };
+  }
 
   const valid = await bcrypt.compare(password, user.passwordHash);
   if (!valid) return { message: "E-mail ou senha incorretos." };

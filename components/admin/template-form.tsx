@@ -115,6 +115,6 @@ function defaultLayers() {
     { type: "photo", id: "photo", x: 190, y: 300, w: 700, h: 900, radius: 48 },
     { type: "text", id: "kicker", x: 90, y: 1300, w: 900, text: "MEU VOTO É", fontSize: 64, color: "#ffc400", weight: "800", align: "center", maxWidth: 900 },
     { type: "text", id: "title", x: 90, y: 1380, w: 900, text: "THIAGO CICINHO", fontSize: 118, color: "#ffffff", weight: "900", align: "center", maxWidth: 900 },
-    { type: "text", id: "handle", x: 90, y: 1560, w: 900, text: "@thiagocicinho", fontSize: 50, color: "#ffc400", weight: "700", align: "center", maxWidth: 900 },
+    { type: "text", id: "handle", x: 90, y: 1660, w: 900, text: "@vereadorthiagocicinho", fontSize: 50, color: "#ffc400", weight: "700", align: "center", maxWidth: 900 },
   ];
 }

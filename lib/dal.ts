@@ -1,5 +1,6 @@
 import "server-only";
 import { cache } from "react";
+import mongoose from "mongoose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { decrypt } from "@/lib/session";
@@ -40,19 +41,46 @@ export const getCurrentUserSafe = cache(async () => {
     email: user.email,
     role: user.role,
     acceptedTermsAt: user.acceptedTermsAt,
+    phone: user.phone,
+    instagramProfiles: (user.instagramProfiles ?? []).map((p: any) => ({
+      _id: String(p._id),
+      handle: p.handle,
+      code: p.code,
+      status: p.status as "pending" | "confirmed",
+      createdAt: p.createdAt,
+    })),
   };
 });
 
 let seedingAttempted = false;
 
+const SEED_VERSION = 2;
+
 export async function ensureTemplatesSeeded() {
   const ready = await dbReady();
   if (!ready) return;
-  if (seedingAttempted) return;
-  seedingAttempted = true;
-  const count = await Template.countDocuments();
-  if (count > 0) return;
-  await Template.insertMany(seedTemplates as any[]);
+  try {
+    const meta = await mongoose
+      .connection.collection("seed_meta")
+      .findOne({ key: "templates" });
+    if (meta?.version === SEED_VERSION) return;
+
+    await Template.deleteMany({});
+    await Template.insertMany(seedTemplates as any[]);
+    await mongoose
+      .connection.collection("seed_meta")
+      .updateOne(
+        { key: "templates" },
+        { $set: { version: SEED_VERSION, updatedAt: new Date() } },
+        { upsert: true }
+      );
+  } catch {
+    if (!seedingAttempted) {
+      seedingAttempted = true;
+      const count = await Template.countDocuments();
+      if (count === 0) await Template.insertMany(seedTemplates as any[]);
+    }
+  }
 }
 
 export async function getTemplates(opts: { onlyActive?: boolean; kind?: string; filter?: string } = {}) {
@@ -170,6 +198,7 @@ export async function getAdminUsers() {
     id: String(u._id),
     name: u.name,
     email: u.email,
+    phone: u.phone,
     role: u.role,
     acceptedTermsAt: u.acceptedTermsAt,
     createdAt: u.createdAt,

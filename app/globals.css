@@ -32,6 +32,10 @@
   --color-gold-800: #6b4b00;
   --color-gold-900: #3d2a00;
 
+  --color-blue-500: #005ff2;
+  --color-blue-600: #005ff2;
+  --color-blue-700: #005ff2;
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-archivo-black), var(--font-inter), sans-serif;
 }

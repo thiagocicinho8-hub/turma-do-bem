@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getSessionOrRedirect, getVideosForUser, getCurrentUserSafe } from "@/lib/dal";
 import { ButtonLink } from "@/components/ui";
 
@@ -7,6 +8,8 @@ export const metadata = { title: "Meus vídeos" };
 export default async function MeusVideosPage() {
   const session = await getSessionOrRedirect();
   const [videos, user] = await Promise.all([getVideosForUser(session.userId), getCurrentUserSafe()]);
+  if (!user || user.id !== session.userId) redirect("/login");
+  if (!user.phone) redirect("/telefone");
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">

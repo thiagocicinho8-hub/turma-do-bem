@@ -20,7 +20,21 @@ async function register(page, name, email) {
   await page.fill('input[name="confirm"]', PASS);
   await page.check('input[name="terms"]');
   await page.click('button[type="submit"]');
-  await page.waitForURL("**/criar**", { timeout: 45000 });
+  await page.waitForURL("**/telefone", { timeout: 45000 });
+}
+
+async function completeOnboarding(page) {
+  await page.waitForURL("**/telefone", { timeout: 45000 });
+  await page.fill('input[name="phone"]', "(11) 99999-9998");
+  await page.click("text=Continuar");
+  await page.waitForURL("**/instagram", { timeout: 45000 });
+  await page.fill('input[name="handle"]', `perfil_${suffix}`);
+  await page.click("text=Conectar meu perfil");
+  await page.waitForSelector("text=Já coloquei o código na bio", { timeout: 30000 });
+  await page.click("text=Já coloquei o código na bio");
+  await page.waitForSelector("text=Verificado", { timeout: 30000 });
+  await page.click("text=Ir para o estúdio");
+  await page.waitForURL("**/criar", { timeout: 45000 });
 }
 
 let browser;
@@ -30,12 +44,13 @@ try {
     headless: true,
   });
 
-  // 1) Registro de novo usuário -> deve cair no /criar
+  // 1) Registro -> /telefone -> /instagram -> /criar
   const ctx = await browser.newContext();
   const page = await ctx.newPage();
   watch(page, "cadastro");
   await register(page, "Teste E2E", EMAIL);
-  log("registro ok ->", page.url());
+  await completeOnboarding(page);
+  log("registro + onboarding ok ->", page.url());
   const cookies = await ctx.cookies();
   log("cookie session:", cookies.some((c) => c.name === "session"));
   if (cookies.some((c) => c.name === "session") === false) failed.push("cookie session ausente");
@@ -44,14 +59,16 @@ try {
   const p2 = await ctx.newPage();
   const r2 = await p2.goto(`${BASE}/criar`, { waitUntil: "domcontentloaded" });
   log("/criar logado:", r2.status(), p2.url());
+  if (r2.status() !== 200) failed.push(`/criar logado retornou ${r2.status()}`);
 
   // 3) Anônimo /criar -> redirect /login?returnTo=/criar
   const ctxAnon = await browser.newContext();
   const pAnon = await ctxAnon.newPage();
   const r3 = await pAnon.goto(`${BASE}/criar`, { waitUntil: "domcontentloaded" });
   log("/criar anonimo:", r3.status(), "->", pAnon.url());
+  if (!pAnon.url().includes("/login")) failed.push(`anonimo deveria ir p/ /login, foi p/ ${pAnon.url()}`);
 
-  // 4) Login com as credenciais recém-criadas
+  // 4) Login com as credenciais recém-criadas (usuário já com onboarding) -> /criar
   const ctxLogin = await browser.newContext();
   const pLogin = await ctxLogin.newPage();
   watch(pLogin, "login");
@@ -59,7 +76,7 @@ try {
   await pLogin.fill('input[name="email"]', EMAIL);
   await pLogin.fill('input[name="password"]', PASS);
   await pLogin.click('button[type="submit"]');
-  await pLogin.waitForURL("**/criar**", { timeout: 45000 });
+  await pLogin.waitForURL("**/criar", { timeout: 45000 });
   log("login ok ->", pLogin.url());
 
   // 5) Erro de credenciais no login
@@ -72,7 +89,7 @@ try {
   await pBad.waitForSelector("text=E-mail ou senha incorretos", { timeout: 20000 });
   log("login invalido -> mensagem de erro mostrada");
 
-  // 6) Usuário comum tentando /admin -> redirect para /
+  // 6) Usuário comum (sem onboarding completo) tentando /admin -> redirect para /
   const ctxUser = await browser.newContext();
   const pUser = await ctxUser.newPage();
   watch(pUser, "admin-block");

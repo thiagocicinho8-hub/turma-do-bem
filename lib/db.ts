@@ -10,6 +10,8 @@ if (!MONGODB_URI && process.env.NODE_ENV !== "test") {
 
 const globalForMongo = globalThis as unknown as { _mongoose?: typeof mongoose };
 
+export let lastDbError: unknown = null;
+
 async function connect() {
   if (!MONGODB_URI) return null;
 
@@ -25,6 +27,7 @@ async function connect() {
     return conn;
   } catch (error) {
     console.error("[db] Falha ao conectar no MongoDB:", error);
+    lastDbError = error;
     return null;
   }
 }

@@ -61,7 +61,7 @@ export const seedTemplates: SeedTemplate[] = [
         fontSize: 118, color: "#ffffff", weight: "900", align: "center", maxWidth: 900,
       },
       {
-        type: "text", id: "handle", x: 90, y: 1500, w: 900, text: "@thiagocicinho",
+        type: "text", id: "handle", x: 90, y: 1660, w: 900, text: "@vereadorthiagocicinho",
         fontSize: 50, color: "#ffc400", weight: "700", align: "center", maxWidth: 900,
       },
     ],
@@ -97,7 +97,7 @@ export const seedTemplates: SeedTemplate[] = [
         fontSize: 92, color: "#ffffff", weight: "900", align: "center", maxWidth: 900,
       },
       {
-        type: "text", id: "handle", x: 90, y: 1730, w: 900, text: "@thiagocicinho",
+        type: "text", id: "handle", x: 90, y: 1850, w: 900, text: "@vereadorthiagocicinho",
         fontSize: 48, color: "#ffc400", weight: "700", align: "center", maxWidth: 900,
       },
     ],
@@ -132,7 +132,7 @@ export const seedTemplates: SeedTemplate[] = [
         fontSize: 56, color: "#ffffff", weight: "700", align: "center", maxWidth: 900,
       },
       {
-        type: "text", id: "handle", x: 90, y: 1740, w: 900, text: "@thiagocicinho",
+        type: "text", id: "handle", x: 90, y: 1800, w: 900, text: "@vereadorthiagocicinho",
         fontSize: 52, color: "#0d1d45", weight: "700", align: "center", maxWidth: 900,
       },
     ],
@@ -159,12 +159,16 @@ export const seedTemplates: SeedTemplate[] = [
       { type: "shape", id: "photo-ring", x: 228, y: 148, w: 624, h: 624, radius: 36, fill: "#ffc400" },
       { type: "photo", id: "photo", x: 240, y: 160, w: 600, h: 600, radius: 28 },
       {
-        type: "text", id: "kicker", x: 60, y: 830, w: 960, text: "MEU VOTO É",
-        fontSize: 56, color: "#ffc400", weight: "800", align: "center", maxWidth: 960,
+        type: "text", id: "kicker", x: 60, y: 800, w: 960, text: "MEU VOTO É",
+        fontSize: 52, color: "#ffc400", weight: "800", align: "center", maxWidth: 960,
       },
       {
-        type: "text", id: "title", x: 60, y: 900, w: 960, text: "THIAGO CICINHO",
-        fontSize: 104, color: "#ffffff", weight: "900", align: "center", maxWidth: 960,
+        type: "text", id: "title", x: 60, y: 870, w: 960, text: "THIAGO CICINHO",
+        fontSize: 88, color: "#ffffff", weight: "900", align: "center", maxWidth: 960,
+      },
+      {
+        type: "text", id: "handle", x: 60, y: 995, w: 960, text: "@vereadorthiagocicinho",
+        fontSize: 40, color: "#ffc400", weight: "700", align: "center", maxWidth: 960,
       },
     ],
   },
@@ -190,12 +194,12 @@ export const seedTemplates: SeedTemplate[] = [
       { type: "shape", id: "photo-ring", x: 278, y: 198, w: 524, h: 524, radius: 262, fill: "#ffc400" },
       { type: "photo", id: "photo", x: 290, y: 210, w: 500, h: 500, radius: 250 },
       {
-        type: "text", id: "handle", x: 60, y: 880, w: 960, text: "@thiagocicinho",
-        fontSize: 80, color: "#ffc400", weight: "800", align: "center", maxWidth: 960,
+        type: "text", id: "handle", x: 60, y: 860, w: 960, text: "@vereadorthiagocicinho",
+        fontSize: 72, color: "#ffc400", weight: "800", align: "center", maxWidth: 960,
       },
       {
-        type: "text", id: "sub", x: 60, y: 985, w: 960, text: "Tropa do Bem",
-        fontSize: 48, color: "#ffffff", weight: "700", align: "center", maxWidth: 960,
+        type: "text", id: "sub", x: 60, y: 970, w: 960, text: "Tropa do Bem",
+        fontSize: 46, color: "#ffffff", weight: "700", align: "center", maxWidth: 960,
       },
     ],
   },
@@ -225,7 +229,7 @@ export const seedTemplates: SeedTemplate[] = [
         fontSize: 96, color: "#ffffff", weight: "900", align: "center", maxWidth: 900, uppercase: true,
       },
       {
-        type: "text", id: "handle", x: 90, y: 1690, w: 900, text: "@thiagocicinho",
+        type: "text", id: "handle", x: 90, y: 1810, w: 900, text: "@vereadorthiagocicinho",
         fontSize: 48, color: "#ffc400", weight: "700", align: "center", maxWidth: 900,
       },
     ],

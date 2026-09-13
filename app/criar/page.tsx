@@ -1,10 +1,15 @@
-import { getSessionOrRedirect, getTemplates } from "@/lib/dal";
+import { redirect } from "next/navigation";
+import { getSessionOrRedirect, getTemplates, getCurrentUserSafe } from "@/lib/dal";
 import { VideoStudio } from "@/components/studio/video-studio";
 
 export const metadata = { title: "Criar vídeo" };
 
 export default async function CriarPage(props: PageProps<"/criar">) {
-  await getSessionOrRedirect();
+  const session = await getSessionOrRedirect();
+  const user = await getCurrentUserSafe();
+  if (!user || user.id !== session.userId) redirect("/login");
+  if (!user.phone) redirect("/telefone");
+
   const search = await props.searchParams;
   const preSelectedId = typeof search.template === "string" ? search.template : undefined;
   const templates = await getTemplates({ onlyActive: true });

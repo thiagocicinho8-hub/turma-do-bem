@@ -54,7 +54,7 @@ export const getCurrentUserSafe = cache(async () => {
 
 let seedingAttempted = false;
 
-const SEED_VERSION = 2;
+const SEED_VERSION = 3;
 
 export async function ensureTemplatesSeeded() {
   const ready = await dbReady();

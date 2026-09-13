@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo_Black, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
@@ -25,6 +25,12 @@ export const metadata: Metadata = {
   },
   description: `Crie, compartilhe e participe. Ferramenta de apoio do vereador ${SITE.title}. Envie sua foto ou vídeo, escolha um template e receba conteúdo pronto para postar.`,
   keywords: [SITE.shortName, "Tropa do Bem", "vereador", "depoimento", "apoio"],
+};
+
+export const viewport: Viewport = {
+  themeColor: "#071229",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

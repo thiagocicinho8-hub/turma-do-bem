@@ -47,7 +47,7 @@ export async function Header() {
       </div>
 
       <nav
-        className="flex gap-5 overflow-x-auto border-t border-navy-800 px-6 py-2.5 md:hidden"
+        className="flex gap-5 overflow-x-auto border-t border-navy-800 px-6 py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden"
         aria-label="Principal (mobile)"
       >
         {NAV.map((item) => (
@@ -59,11 +59,6 @@ export async function Header() {
             {item.label}
           </Link>
         ))}
-        {!user && (
-          <Link href="/login" className="shrink-0 text-sm font-medium text-gold-400">
-            Entrar
-          </Link>
-        )}
       </nav>
     </header>
   );

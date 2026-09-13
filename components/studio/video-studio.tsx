@@ -344,7 +344,7 @@ export function VideoStudio({ templates, preSelectedId }: { templates: Tpl[]; pr
             {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-700">{error}</p>}
 
             <div className="mt-4">
-              <Button size="lg" onClick={handleGenerate} disabled={phase === "rendering" || mediaStatus === "empty"}>
+              <Button size="lg" className="w-full sm:w-auto" onClick={handleGenerate} disabled={phase === "rendering" || mediaStatus === "empty"}>
                 {phase === "rendering" ? "Gerando…" : "Gerar vídeo"}
               </Button>
             </div>

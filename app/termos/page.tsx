@@ -4,7 +4,7 @@ export const metadata = { title: "Termo de responsabilidade" };
 
 export default function TermosPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20">
+    <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
       <h1 className="font-display text-3xl uppercase text-navy-950 sm:text-4xl">Termo de responsabilidade</h1>
       <p className="mt-1 text-sm text-navy-500">Última atualização: setembro de 2026</p>
 

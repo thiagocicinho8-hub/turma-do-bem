@@ -56,7 +56,7 @@ export function TemplatesGallery({ templates }: { templates: Template[] }) {
               <p className="mt-0.5 line-clamp-2 text-xs text-navy-500">{t.description}</p>
               <Link
                 href={`/criar?template=${t._id}`}
-                className="mt-2 inline-flex rounded-full bg-gold-400 px-4 py-1.5 text-xs font-bold text-navy-950 transition hover:bg-gold-300"
+                className="mt-2 flex w-full justify-center rounded-full bg-gold-400 px-4 py-1.5 text-xs font-bold text-navy-950 transition hover:bg-gold-300 sm:w-auto"
               >
                 Usar template
               </Link>

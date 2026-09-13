@@ -10,7 +10,7 @@ export default async function PerfilPage() {
   if (!user) return null;
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
+    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
       <h1 className="font-display text-3xl uppercase text-navy-950">Meu perfil</h1>
       <p className="mt-1 text-sm text-navy-500">Suas informações de acesso.</p>
 

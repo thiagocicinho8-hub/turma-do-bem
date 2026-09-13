@@ -55,6 +55,12 @@ body {
   letter-spacing: -0.01em;
 }
 
+@keyframes scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 ::selection {
   background: var(--color-gold-400);
   color: var(--color-navy-950);

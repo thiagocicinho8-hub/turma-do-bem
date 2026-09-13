@@ -22,7 +22,7 @@ export default function ATropaPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-6 py-20">
+      <section className="mx-auto max-w-4xl px-4 py-20 sm:px-6">
         <h2 className="font-display text-2xl uppercase text-navy-950">Como funciona?</h2>
         <div className="mt-8 space-y-4">
           {PASSOS.map((p) => (

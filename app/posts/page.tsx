@@ -12,11 +12,50 @@ const PLATFORM_LABEL: Record<string, string> = {
   youtube: "YouTube Shorts",
 };
 
+const PLACEHOLDER_POSTS = [
+  {
+    _id: "exemplo-1",
+    userName: "maria_da_tropa",
+    platform: "instagram",
+    caption: `Meu voto é Thiago Cicinho! Marquei ${SITE.handle} na legenda e já fiz meu vídeo. 🗳`,
+    url: "https://www.instagram.com/",
+    views: 2340,
+    interactions: 318,
+  },
+  {
+    _id: "exemplo-2",
+    userName: "jose_diretoria",
+    platform: "tiktok",
+    caption: `Gente, o site é simples demais: grava, escolhe o template e posta. ${SITE.handle} 👏`,
+    url: "https://www.tiktok.com/",
+    views: 1876,
+    interactions: 254,
+  },
+  {
+    _id: "exemplo-3",
+    userName: "clara_fiel",
+    platform: "instagram",
+    caption: `Apoio de verdade é atitude. Criei meu vídeo com a Tropa do Bem e postei marcando ${SITE.handle}.`,
+    url: "https://www.instagram.com/",
+    views: 1429,
+    interactions: 197,
+  },
+  {
+    _id: "exemplo-4",
+    userName: "rafael_zinho",
+    platform: "youtube",
+    caption: "Todo mundo da família já fez o dela. Bora lá, Tropa!",
+    url: "https://www.youtube.com/",
+    views: 987,
+    interactions: 121,
+  },
+];
+
 export default async function PostsPage() {
   const [posts, session] = await Promise.all([getRecentPosts(), verifySession()]);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <header className="mb-10">
         <p className="text-xs font-bold uppercase tracking-[0.25em] text-gold-600">Últimas publicações</p>
         <h1 className="mt-1 font-display text-3xl uppercase text-navy-950 sm:text-4xl">A Tropa postando</h1>
@@ -29,12 +68,41 @@ export default async function PostsPage() {
       <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
         <div>
           {posts.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-navy-300 bg-navy-50 p-12 text-center">
-              <p className="font-display text-xl uppercase text-navy-700">Nada por aqui ainda</p>
-              <p className="mt-2 text-sm text-navy-500">
-                Seja a primeira pessoa da Tropa a publicar e registrar um post.
+            <>
+              <p className="mb-5 rounded-xl bg-gold-50 px-4 py-2.5 text-xs font-semibold text-gold-800 ring-1 ring-gold-200">
+                Ainda não há publicações reais — abaixo uma prévia de como o mural vai ficar.
               </p>
-            </div>
+              <ul className="grid gap-5 sm:grid-cols-2">
+                {PLACEHOLDER_POSTS.map((p, i) => (
+                  <li key={p._id}>
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block rounded-2xl border border-navy-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-gold-400 hover:shadow-md"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="truncate text-sm font-bold text-navy-950">
+                          <span className="text-gold-600">@{p.userName}</span>
+                        </p>
+                        <span className="shrink-0 rounded-full bg-navy-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-navy-500">
+                          {PLATFORM_LABEL[p.platform]}
+                        </span>
+                      </div>
+                      <p className="mt-3 line-clamp-3 text-sm text-navy-700">{p.caption}</p>
+                      <div className="mt-4 flex items-center gap-4 text-xs font-semibold text-navy-500">
+                        <span className="flex items-center gap-1">
+                          <span aria-hidden>👁</span> {p.views.toLocaleString("pt-BR")} views
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span aria-hidden>❤️</span> {p.interactions.toLocaleString("pt-BR")}
+                        </span>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
           ) : (
             <ul className="grid gap-5 sm:grid-cols-2">
               {posts.map((p, i) => (

@@ -37,7 +37,7 @@ export function PostSubmit() {
         Publique seu vídeo marcando o perfil na legenda e registre o link abaixo.
       </p>
       {!open ? (
-        <Button className="mt-4" onClick={() => setOpen(true)}>Registrar minha publicação</Button>
+        <Button className="mt-4 w-full sm:w-auto" onClick={() => setOpen(true)}>Registrar minha publicação</Button>
       ) : done ? (
         <p className="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
           Publicação registrada. Aparecer nesta lista não gera benefício material — é apenas um mural de apoio espontâneo.
@@ -66,7 +66,7 @@ export function PostSubmit() {
             className="w-full rounded-xl border border-navy-200 px-4 py-3 text-sm outline-none focus:border-navy-900"
           />
           {error && <p className="text-sm font-medium text-red-600">{error}</p>}
-          <Button onClick={submit}>Enviar</Button>
+          <Button className="w-full" onClick={submit}>Enviar</Button>
         </div>
       )}
     </div>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTemplates, getStats } from "@/lib/dal";
 import { SITE } from "@/lib/config";
 import { ButtonLink } from "@/components/ui";
+import { CountUp } from "@/components/count-up";
 import { TemplateThumb } from "@/components/template-thumb";
 
 const PASSOS = [
@@ -10,16 +11,19 @@ const PASSOS = [
   { n: "03", t: "Poste e marque", d: "Os vídeos saem em 1080×1920, prontos para Reels, TikTok e Shorts. Ao publicar, marque o perfil." },
 ];
 
+const PLACEHOLDER_STATS = { posts: 34, views: 13874, interactions: 5213 };
+
 export default async function Home() {
   const [templates, stats] = await Promise.all([getTemplates({ onlyActive: true }), getStats()]);
   const featured = templates.slice(0, 4);
+  const shown = stats.posts > 0 ? stats : PLACEHOLDER_STATS;
 
   return (
     <div>
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-950 text-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,#1f3772_0%,transparent_55%)]" />
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-2 md:py-28">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 sm:px-6 md:grid-cols-2 md:py-28">
           <div>
             <p className="mb-4 inline-flex items-center rounded-full bg-gold-400/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-gold-400 ring-1 ring-gold-400/30">
               Ferramenta de apoio
@@ -33,9 +37,9 @@ export default async function Home() {
               Envie um vídeo ou uma foto sua e receba vídeos prontos para postar, com
               os textos e a identidade do {SITE.title}. Leva menos de dois minutos.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/criar" size="lg">Entrar para criar</ButtonLink>
-              <ButtonLink href="/templates" variant="outline" size="lg" className="border-gold-400 text-gold-400 hover:bg-white/10">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <ButtonLink href="/criar" size="lg" className="w-full justify-center sm:w-auto">Entrar para criar</ButtonLink>
+              <ButtonLink href="/templates" variant="outline" size="lg" className="w-full justify-center border-gold-400 text-gold-400 hover:bg-white/10 sm:w-auto">
                 Ver templates
               </ButtonLink>
             </div>
@@ -57,7 +61,7 @@ export default async function Home() {
         </div>
 
         <div className="overflow-hidden border-t border-navy-800 bg-navy-900/60 py-3">
-          <div className="flex w-max animate-[scroll_20s_linear_infinite] gap-10 whitespace-nowrap text-sm font-bold uppercase tracking-widest text-gold-300">
+          <div className="flex w-max animate-[scroll_28s_linear_infinite] gap-10 whitespace-nowrap text-sm font-bold uppercase tracking-widest text-gold-300">
             {[1, 2].map((k) => (
               <span key={k} className="flex gap-10">
                 <span>Grave</span><span className="text-navy-400">·</span>
@@ -73,7 +77,7 @@ export default async function Home() {
       </section>
 
       {/* COMO FUNCIONA */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="text-center">
           <h2 className="font-display text-3xl uppercase text-navy-950 sm:text-4xl">Faz assim.<br />Dois minutos. Três passos.</h2>
         </div>
@@ -90,7 +94,7 @@ export default async function Home() {
 
       {/* TEMPLATES */}
       <section className="bg-navy-50 py-20">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex items-end justify-between gap-4">
             <div>
               <h2 className="font-display text-3xl uppercase text-navy-950 sm:text-4xl">Templates aprovados</h2>
@@ -129,7 +133,7 @@ export default async function Home() {
       </section>
 
       {/* A TROPA POSTANDO */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="grid items-center gap-10 md:grid-cols-2">
           <div>
             <h2 className="font-display text-3xl uppercase text-navy-950 sm:text-4xl">A Tropa postando</h2>
@@ -137,17 +141,17 @@ export default async function Home() {
               Depoimentos reais publicados pela própria Tropa nas redes sociais.
               Veja o que a galera anda compartilhando.
             </p>
-            <div className="mt-6 flex items-end gap-6">
+            <div className="mt-6 flex flex-wrap items-end gap-5 sm:gap-6">
               <div>
-                <p className="font-display text-3xl text-gold-600">{stats.posts}</p>
+                <p className="font-display text-3xl text-gold-600"><CountUp value={shown.posts} /></p>
                 <p className="text-xs uppercase tracking-wider text-navy-500">posts</p>
               </div>
               <div>
-                <p className="font-display text-3xl text-gold-600">{stats.views.toLocaleString("pt-BR")}</p>
+                <p className="font-display text-3xl text-gold-600"><CountUp value={shown.views} /></p>
                 <p className="text-xs uppercase tracking-wider text-navy-500">visualizações</p>
               </div>
               <div>
-                <p className="font-display text-3xl text-gold-600">{stats.interactions.toLocaleString("pt-BR")}</p>
+                <p className="font-display text-3xl text-gold-600"><CountUp value={shown.interactions} /></p>
                 <p className="text-xs uppercase tracking-wider text-navy-500">interações</p>
               </div>
             </div>
